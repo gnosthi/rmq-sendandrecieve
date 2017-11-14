@@ -1,6 +1,6 @@
 {
   "Host": "localhost",
-  "Port": "9090",
+  "Port": "5672",
   "User": "guest",
   "Pass": "guest",
   "QueueName": "TestQueue",
