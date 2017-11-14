@@ -1,0 +1,8 @@
+{
+  "Host": "localhost",
+  "Port": "9090",
+  "User": "guest",
+  "Pass": "guest",
+  "QueueName": "TestQueue",
+  "MessageText": "random"
+}
