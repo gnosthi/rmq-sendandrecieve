@@ -29,7 +29,7 @@ func main() {
 
 	q, err := ch.QueueDeclare(
 		rmq_snr_config.ChannelQueName,
-		false,
+		rmq_snr_config.RmqDurableMessage,
 		false,
 		false,
 		false,
@@ -52,12 +52,22 @@ func main() {
 		body = rmq_snr_config.MessageBody
 	}
 
+	deliveryMode := amqp.Transient
+	if rmq_snr_config.RmqSendPersistMode == true {
+		deliveryMode = amqp.Persistent
+	}
+
+	if rmq_snr_config.RmqDurableMessage == true && rmq_snr_config.RmqSendPersistMode == false {
+		panic(fmt.Sprintln("Config ERROR: If durability is set to true, so must PersistMode"))
+	}
+
 	err = ch.Publish(
 		"",
 		q.Name,
 		false,
 		false,
 		amqp.Publishing{
+			DeliveryMode: deliveryMode,
 			ContentType: "text/plain",
 			Body: []byte(body),
 		})

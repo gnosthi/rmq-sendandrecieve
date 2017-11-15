@@ -4,5 +4,11 @@
   "User": "guest",
   "Pass": "guest",
   "QueueName": "TestQueue",
-  "MessageText": "random"
+  "MessageText": "random",
+  "SenderPersistMode": true,
+  "DurableMessages": true,
+  "ReceiverAcknowledgeMessages": true,
+  "QoSCount": 1,
+  "QoSSize": 0,
+  "QoSGlobal": false
 }

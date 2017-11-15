@@ -19,6 +19,18 @@ var (
 	config		*configStruct
 )
 
+var (
+	RmqSendPersistMode bool
+	RmqDurableMessage bool
+)
+
+var (
+	RmqRecvAck bool
+	RmqQOSCount int
+	RmqQOSSize int
+	RmqQOSGlobal bool
+)
+
 type configStruct struct {
 	RmqHost		string  `json:"Host"`
 	RmqPort		string	`json:"Port"`
@@ -26,6 +38,12 @@ type configStruct struct {
 	RmqPass		string	`json:"Pass"`
 	ChannelQueName	string	`json:"QueueName"`
 	MessageBody	string	`json:"MessageText"`
+	RmqSendPersistMode bool `json:"SenderPersistMode"`
+	RmqDurableMessage bool	`json:"DurableMessages"`
+	RmqRecvAck	bool	`json:"RecieverAcknowledgeMessages"`
+	RmqQOSCount int	`json:"QoSCount"`
+	RmqQOSSize int	`json:"QoSSize"`
+	RmqQOSGlobal bool `json:"QoSGlobal"`
 }
 
 func ReadConfig() error {
@@ -48,6 +66,13 @@ func ReadConfig() error {
 	RmqPass = config.RmqPass
 	ChannelQueName = config.ChannelQueName
 	MessageBody = config.MessageBody
+
+	RmqSendPersistMode = config.RmqSendPersistMode
+	RmqDurableMessage = config.RmqDurableMessage
+	RmqRecvAck = config.RmqRecvAck
+	RmqQOSCount = config.RmqQOSCount
+	RmqQOSSize = config.RmqQOSSize
+	RmqQOSGlobal = config.RmqQOSGlobal
 
 	return nil
 }
