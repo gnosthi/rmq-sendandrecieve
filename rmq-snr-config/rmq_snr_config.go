@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"encoding/json"
+	"os"
 )
 
 var (
@@ -16,6 +17,7 @@ var (
 	ChannelQueName string
 	MessageBody string
 
+	SnRConfigPath  string
 	config		*configStruct
 )
 
@@ -47,12 +49,20 @@ type configStruct struct {
 }
 
 func ReadConfig() error {
+
+	if _, err := os.Stat("./config.json"); !os.IsNotExist(err) {
+		SnRConfigPath = "./"
+	} else if _, err := os.Stat("/etc/snr/config.json"); !os.IsNotExist(err) {
+		SnRConfigPath = "/etc/snri/"
+	} else {
+		panic(fmt.Sprintf("Could not find config file: %s", err))
+	}
 	fmt.Println("Reading from config file...")
 
-	file, err := ioutil.ReadFile("./config.json")
+	file, err := ioutil.ReadFile(SnRConfigPath+"config.json")
 
 	if err != nil {
-		fmt.Println("Error in reading config file ./config.json")
+		fmt.Println("Error in reading config file "+SnRConfigPath+"config.json")
 		panic(err)
 	}
 
